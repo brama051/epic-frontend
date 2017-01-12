@@ -6,8 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SequenceListComponent } from './sequence-list/sequence-list.component';
-import { AuthorizedComponent } from './authorized/authorized.component';
 import { RouterModule, Routes } from '@angular/router';
+import { HeaderComponent } from './header/header.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     SequenceListComponent,
-    AuthorizedComponent
+    HeaderComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
