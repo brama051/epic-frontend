@@ -7,6 +7,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SequenceListComponent } from './sequence-list/sequence-list.component';
 import { AuthorizedComponent } from './authorized/authorized.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: '',      component: SequenceListComponent },
+
+];
 
 @NgModule({
   declarations: [
@@ -16,6 +23,7 @@ import { AuthorizedComponent } from './authorized/authorized.component';
     AuthorizedComponent
   ],
   imports: [
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
     HttpModule
