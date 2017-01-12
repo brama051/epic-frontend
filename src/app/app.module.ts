@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SequenceListComponent } from './sequence-list/sequence-list.component';
+import { AuthorizedComponent } from './authorized/authorized.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SequenceListComponent
+    SequenceListComponent,
+    AuthorizedComponent
   ],
   imports: [
     BrowserModule,
