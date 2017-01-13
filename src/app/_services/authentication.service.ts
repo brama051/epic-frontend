@@ -10,7 +10,7 @@ export class AuthenticationService {
   login(username: string, password: string) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
+    headers.append('Access-Control-Allow-Origin', '*');
     let options = {
       headers: headers
     };

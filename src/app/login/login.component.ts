@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit{
       .subscribe(
         data => {
           this.token = localStorage.getItem('token');
-          console.log();
           if (!this.token){
             this.message = localStorage.getItem('loginMessage');
           }else{
@@ -42,8 +41,7 @@ export class LoginComponent implements OnInit{
 
         },
         error => {
-          //this.alertService.error(error);
-          //this.loading = false;
+          console.log('Error while trying to validate user');
         });
 
   }

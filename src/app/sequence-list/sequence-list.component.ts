@@ -13,11 +13,13 @@ export class SequenceListComponent implements OnInit {
   private page: number;
   private itemsPerPage: number;
   private sequenceList: Sequence[];
+  private totalPages: number;
   constructor(private sequenceListService: SequenceListService) {
     this.filter = "";
     this.page = 1;
     this.itemsPerPage = 5;
     this.sequenceList = [];
+    this.totalPages = 1;
   }
 
   ngOnInit() {
@@ -29,16 +31,18 @@ export class SequenceListComponent implements OnInit {
     this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page, this.itemsPerPage, this.filter)
       .subscribe(
         data => {
-          //console.log(data);
+          console.log(data);
 
           data.list.forEach((arrayItem)=>{
             //console.log(arrayItem);
             this.sequenceList.push(new Sequence(arrayItem.sequenceNumber, arrayItem.byUser, arrayItem.purpose, arrayItem.date));
           });
-          console.log(this.sequenceList)
+
+          //console.log(this.sequenceList)
 
         },
         error => {
+          console.log('Error fetching data');
           //this.alertService.error(error);
           //this.loading = false;
         });
@@ -49,6 +53,10 @@ export class SequenceListComponent implements OnInit {
     this.getPage();
   }
 
-  nextPage(){}
-  previousPage(){}
+  nextPage(){
+
+  }
+  previousPage(){
+
+  }
 }
