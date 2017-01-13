@@ -9,10 +9,11 @@
     <div class="col-md-2">
       <button type="button" class="btn btn-primary">Claim New</button>
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+    </div>
     <div class="col-lg-4">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Filter data...">
+        <input type="text" class="form-control" placeholder="Filter data..." [(ngModel)]="filter" (keyup)="onKey()" (keyup.enter)="onEnter()">
         <span class="input-group-btn">
         <button class="btn btn-default" type="button" (click)="filterData()">Go!</button>
       </span>

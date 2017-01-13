@@ -14,6 +14,7 @@ export class SequenceListComponent implements OnInit {
   private itemsPerPage: number;
   private sequenceList: Sequence[];
   private totalPages: number;
+
   constructor(private sequenceListService: SequenceListService) {
     this.filter = "";
     this.page = 1;
@@ -28,7 +29,6 @@ export class SequenceListComponent implements OnInit {
   }
 
   getPage(){
-
     this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page, this.itemsPerPage, this.filter)
       .subscribe(
         data => {
@@ -50,12 +50,12 @@ export class SequenceListComponent implements OnInit {
         });
   }
 
-  filterData(){
+  filterData() {
     console.log('Attempting to filter data');
     this.getPage();
   }
 
-  nextPage(){
+  nextPage() {
     console.log('Requesting next page');
     console.log('Current page:' + this.page);
     console.log('Total pages:' + this.totalPages);
@@ -64,7 +64,7 @@ export class SequenceListComponent implements OnInit {
       this.getPage();
     }
   }
-  previousPage(){
+  previousPage() {
     console.log('Requesting previous page');
     console.log('Current page:' + this.page);
     console.log('Total pages:' + this.totalPages);
@@ -73,4 +73,14 @@ export class SequenceListComponent implements OnInit {
       this.getPage();
     }
   }
+
+  onEnter() {
+      this.getPage();
+  }
+
+  onKey(){
+    this.page = 1;
+  }
+
+
 }
