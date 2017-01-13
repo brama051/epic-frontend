@@ -28,13 +28,15 @@ export class SequenceListComponent implements OnInit {
   }
 
   getPage(){
+
     this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page, this.itemsPerPage, this.filter)
       .subscribe(
         data => {
+          this.sequenceList = [];
           console.log(data);
-
+          this.totalPages = data.totalPages;
           data.list.forEach((arrayItem)=>{
-            //console.log(arrayItem);
+
             this.sequenceList.push(new Sequence(arrayItem.sequenceNumber, arrayItem.byUser, arrayItem.purpose, arrayItem.date));
           });
 
@@ -54,9 +56,21 @@ export class SequenceListComponent implements OnInit {
   }
 
   nextPage(){
-
+    console.log('Requesting next page');
+    console.log('Current page:' + this.page);
+    console.log('Total pages:' + this.totalPages);
+    if(this.page < this.totalPages){
+      this.page ++;
+      this.getPage();
+    }
   }
   previousPage(){
-
+    console.log('Requesting previous page');
+    console.log('Current page:' + this.page);
+    console.log('Total pages:' + this.totalPages);
+    if(this.page > 1){
+      this.page --;
+      this.getPage();
+    }
   }
 }
