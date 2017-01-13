@@ -12,14 +12,13 @@ export class SequenceListComponent implements OnInit {
   filter: string;
   page: number;
   itemsPerPage: number;
-  sequenceList: Sequence[];
-
-
+  public sequenceList: Sequence[];
 
   constructor(private sequenceListService: SequenceListService) {
     this.filter = "";
     this.page = 1;
     this.itemsPerPage = 5;
+    this.sequenceList = [];
   }
 
   ngOnInit() {
@@ -30,8 +29,13 @@ export class SequenceListComponent implements OnInit {
     this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page, this.itemsPerPage, this.filter)
       .subscribe(
         data => {
-          console.log(data);
-          this.sequenceList = data.list;
+          //console.log(data);
+
+          data.list.forEach((arrayItem)=>{
+            //console.log(arrayItem);
+            this.sequenceList.push(new Sequence(arrayItem.sequenceNumber, arrayItem.byUser, arrayItem.purpose, arrayItem.date));
+          });
+          console.log(this.sequenceList)
 
         },
         error => {

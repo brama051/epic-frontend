@@ -22,6 +22,8 @@
 
   <div class="row spacer">
     <div class="col-md-12">
+
+
       <table class="table table-bordered">
         <tr>
           <th>NO.</th>
@@ -29,30 +31,14 @@
           <th>Purpose</th>
           <th>Date</th>
         </tr>
-        <tr>
-          <td>0</td>
-          <td>nobody</td>
-          <td>no purpose</td>
-          <td>0000-00-00 00:00:00</td>
+
+        <tr *ngFor="let seq of sequenceList">
+          <td>{{seq.sequenceNumber}}</td>
+          <td>{{seq.byUser}}</td>
+          <td>{{seq.purpose}}</td>
+          <td>{{seq.date}}</td>
         </tr>
-        <tr>
-          <td>0</td>
-          <td>nobody</td>
-          <td>no purpose</td>
-          <td>0000-00-00 00:00:00</td>
-        </tr>
-        <tr>
-          <td>0</td>
-          <td>nobody</td>
-          <td>no purpose</td>
-          <td>0000-00-00 00:00:00</td>
-        </tr>
-        <tr>
-          <td>0</td>
-          <td>nobody</td>
-          <td>no purpose</td>
-          <td>0000-00-00 00:00:00</td>
-        </tr>
+
       </table>
     </div>
 
