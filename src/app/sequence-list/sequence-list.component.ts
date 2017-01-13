@@ -9,11 +9,10 @@ import {SequenceListService} from "../_services/sequence-list.service";
 })
 export class SequenceListComponent implements OnInit {
 
-  filter: string;
-  page: number;
-  itemsPerPage: number;
-  public sequenceList: Sequence[];
-
+  private filter: string;
+  private page: number;
+  private itemsPerPage: number;
+  private sequenceList: Sequence[];
   constructor(private sequenceListService: SequenceListService) {
     this.filter = "";
     this.page = 1;
@@ -22,7 +21,8 @@ export class SequenceListComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log('Fetching the initial data');
+    this.getPage();
   }
 
   getPage(){
@@ -49,5 +49,6 @@ export class SequenceListComponent implements OnInit {
     this.getPage();
   }
 
-
+  nextPage(){}
+  previousPage(){}
 }
