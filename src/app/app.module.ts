@@ -10,6 +10,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import {AuthenticationService} from "./_services/authentication.service";
 import {AuthGuard} from "./_guards/auth-guard";
+import {SequenceListService} from "./_services/sequence-list.service";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthenticationService,
-    AuthGuard
+    AuthGuard,
+    SequenceListService
   ],
   bootstrap: [AppComponent]
 })
