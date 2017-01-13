@@ -106,5 +106,8 @@ export class SequenceListComponent implements OnInit {
 
   }
 
+  showModal(sequenceNumber: number){
+    console.log('Show modal ' + sequenceNumber);
+  }
 
 }

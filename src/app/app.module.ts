@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import {AuthenticationService} from "./_services/authentication.service";
 import {AuthGuard} from "./_guards/auth-guard";
 import {SequenceListService} from "./_services/sequence-list.service";
+import { PopupComponent } from './popup/popup.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,7 +23,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     SequenceListComponent,
-    HeaderComponent
+    HeaderComponent,
+    PopupComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
