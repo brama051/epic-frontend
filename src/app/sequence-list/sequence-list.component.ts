@@ -52,6 +52,7 @@ export class SequenceListComponent implements OnInit {
 
   filterData() {
     console.log('Attempting to filter data');
+    this.page = 1;
     this.getPage();
   }
 
@@ -60,8 +61,19 @@ export class SequenceListComponent implements OnInit {
     console.log('Current page:' + this.page);
     console.log('Total pages:' + this.totalPages);
     if(this.page < this.totalPages){
-      this.page ++;
-      this.getPage();
+      this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page + 1, this.itemsPerPage, this.filter)
+        .subscribe(
+          data => {
+            this.sequenceList = [];
+            this.totalPages = data.totalPages;
+            this.page ++;
+            data.list.forEach((arrayItem)=>{
+              this.sequenceList.push(new Sequence(arrayItem.sequenceNumber, arrayItem.byUser, arrayItem.purpose, arrayItem.date));
+            });
+          },
+          error => {
+            console.log('Error fetching data');
+          });
     }
   }
   previousPage() {
@@ -69,17 +81,29 @@ export class SequenceListComponent implements OnInit {
     console.log('Current page:' + this.page);
     console.log('Total pages:' + this.totalPages);
     if(this.page > 1){
-      this.page --;
-      this.getPage();
+      this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page - 1, this.itemsPerPage, this.filter)
+        .subscribe(
+          data => {
+            this.sequenceList = [];
+            this.totalPages = data.totalPages;
+            this.page --;
+            data.list.forEach((arrayItem)=>{
+              this.sequenceList.push(new Sequence(arrayItem.sequenceNumber, arrayItem.byUser, arrayItem.purpose, arrayItem.date));
+            });
+          },
+          error => {
+            console.log('Error fetching data');
+          });
     }
   }
 
   onEnter() {
-      this.getPage();
+    this.page = 1;
+    this.getPage();
   }
 
   onKey(){
-    this.page = 1;
+
   }
 
 
