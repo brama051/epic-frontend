@@ -39,7 +39,7 @@ export class AuthenticationService {
       headers: headers
     };
 
-    return this.http.post("https://epic-app-backend.herokuapp.com/logout", JSON.stringify({token: token.trim()}), options)
+    return this.http.post("https://epic-app-backend.herokuapp.com/logout", JSON.stringify({token: token}), options)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         //console.log(response);
