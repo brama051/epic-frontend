@@ -15,7 +15,7 @@ export class AuthenticationService {
       headers: headers
     };
 
-    return this.http.post("http://localhost:8080/login", JSON.stringify({username: username.trim(), password: password.trim()}), options)
+    return this.http.post("https://epic-app-backend.herokuapp.com/login", JSON.stringify({username: username.trim(), password: password.trim()}), options)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         //console.log(response);
@@ -39,7 +39,7 @@ export class AuthenticationService {
       headers: headers
     };
 
-    return this.http.post("http://localhost:8080/logout", JSON.stringify({token: token.trim()}), options)
+    return this.http.post("https://epic-app-backend.herokuapp.com/logout", JSON.stringify({token: token.trim()}), options)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         //console.log(response);
