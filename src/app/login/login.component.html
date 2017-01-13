@@ -9,7 +9,7 @@
   </div>
   <form class="form-signin" (ngSubmit)="onSubmit(f)" #f="ngForm">
     <h2 class="form-signin-heading text-center">Please sign in</h2>
-    <div class="alert alert-info" *ngIf="message">
+    <div class="alert alert-info text-center" *ngIf="message">
       <strong>{{message}}</strong>
     </div>
     <label for="inputUsername" class="sr-only">Username</label>
