@@ -20,13 +20,14 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(){
     // reset login status
-    this.authenticationService.logout();
+    localStorage.removeItem('token');
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.message = localStorage.getItem('loginMessage');
   }
   onSubmit(form: NgForm){
-    console.log(form.value);
+    //console.log(form.value);
     this.message = '';
     this.authenticationService.login(form.value.username, form.value.password)
       .subscribe(

@@ -9,11 +9,11 @@ import { SequenceListComponent } from './sequence-list/sequence-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import {AuthenticationService} from "./_services/authentication.service";
+import {AuthGuard} from "./_guards/auth-guard";
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '',      component: SequenceListComponent },
-
+  { path: '',      component: SequenceListComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -29,7 +29,10 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule
   ],
-  providers: [AuthenticationService],
+  providers: [
+    AuthenticationService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

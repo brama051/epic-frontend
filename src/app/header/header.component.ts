@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from "../_services/authentication.service";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'ef-header',
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
+  onLogout(){
+
+    this.authenticationService.logout(localStorage.getItem('token'))
+      .subscribe(
+        data => {
+          let token = localStorage.getItem('token');
+
+          if (!token){
+            this.router.navigate(['/login']);
+          }
+
+        },
+        error => {
+          //this.alertService.error(error);
+          //this.loading = false;
+        });
+  }
 }
