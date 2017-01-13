@@ -18,9 +18,9 @@ export class AuthenticationService {
     return this.http.post("http://localhost:8080/login", JSON.stringify({username: username.trim(), password: password.trim()}), options)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
-        console.log(response);
+        //console.log(response);
         let message = response.json();
-        console.log(message);
+        //console.log(message);
         localStorage.removeItem('loginMessage');
         if(message && message.status.indexOf("Error") == -1 && message.status.indexOf("Success: Login") > -1){
           localStorage.setItem('token', message.body);
@@ -42,13 +42,11 @@ export class AuthenticationService {
     return this.http.post("http://localhost:8080/logout", JSON.stringify({token: token.trim()}), options)
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
-        console.log(response);
+        //console.log(response);
         let message = response.json();
-        console.log(message);
+        //console.log(message);
         localStorage.removeItem('loginMessage');
-        if(message && message.status.indexOf("Error") == -1 && message.status.indexOf("Success: Login") > -1){
-          localStorage.setItem('token', message.body);
-        }else{
+        if(message && message.status.indexOf("Error") == -1 && message.status.indexOf("Success: Logout") > -1){
           localStorage.setItem('loginMessage', message.body);
         }
       });
