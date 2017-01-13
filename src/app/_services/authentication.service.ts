@@ -24,6 +24,8 @@ export class AuthenticationService {
         localStorage.removeItem('loginMessage');
         if(message && message.status.indexOf("Error") == -1 && message.status.indexOf("Success: Login") > -1){
           localStorage.setItem('token', message.body);
+          localStorage.removeItem('loginMessage');
+          localStorage.setItem('username', username);
         }else{
           localStorage.setItem('loginMessage', message.body);
         }
@@ -47,6 +49,8 @@ export class AuthenticationService {
         //console.log(message);
         localStorage.removeItem('loginMessage');
         if(message && message.status.indexOf("Error") == -1 && message.status.indexOf("Success: Logout") > -1){
+          localStorage.removeItem('token');
+          localStorage.removeItem('username');
           localStorage.setItem('loginMessage', message.body);
         }
       });
