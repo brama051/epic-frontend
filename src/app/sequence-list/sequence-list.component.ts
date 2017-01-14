@@ -15,7 +15,6 @@ export class SequenceListComponent implements OnInit {
   private itemsPerPage: number;
   private sequenceList: Sequence[];
   private totalPages: number;
-
   @ViewChild(PopupComponent)
   private popupComponent: PopupComponent;
 
@@ -112,6 +111,7 @@ export class SequenceListComponent implements OnInit {
     this.popupComponent.openModal();
     this.popupComponent.isNewSequence = false;
     console.log('Show modal ' + sequenceNumber);
+
   }
 
   doClaimNew(){

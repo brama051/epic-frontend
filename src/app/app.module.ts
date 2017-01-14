@@ -12,6 +12,8 @@ import {AuthenticationService} from "./_services/authentication.service";
 import {AuthGuard} from "./_guards/auth-guard";
 import {SequenceListService} from "./_services/sequence-list.service";
 import { PopupComponent } from './popup/popup.component';
+import {SequenceService} from "./_services/sequence.service";
+
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -30,12 +32,14 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+
   ],
   providers: [
     AuthenticationService,
     AuthGuard,
-    SequenceListService
+    SequenceListService,
+    SequenceService
   ],
   bootstrap: [AppComponent]
 })
