@@ -62,6 +62,13 @@ export class SequenceListComponent implements OnInit {
     }
   }
 
+  resetFilters(){
+    this.page = 1;
+    this.filter = "";
+    this.orderBy = "sequenceNumber";
+    this.getPage();
+  }
+
   nextPage() {
     console.log('Requesting next page');
     console.log('Current page:' + this.page);
@@ -126,14 +133,10 @@ export class SequenceListComponent implements OnInit {
 
   }
 
-  onEnter() {
+  /*onEnter() {
     this.page = 1;
     this.getPage();
-  }
-
-  onKey(){
-
-  }
+  }*/
 
   doShowModal(sequenceNumber: number){
     this.popupComponent.isNewSequence = false;

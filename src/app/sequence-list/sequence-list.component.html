@@ -13,10 +13,11 @@
     </div>
     <div class="col-lg-4">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Filter data..." [(ngModel)]="filter" (keyup)="onKey()" (keyup.enter)="onEnter()">
+        <input type="text" class="form-control" placeholder="Filter data..." [(ngModel)]="filter" (keyup.enter)="filterData()">
         <span class="input-group-btn">
-        <button class="btn btn-default" type="button" (click)="filterData()">Go!</button>
-      </span>
+          <button class="btn btn-default" type="button" (click)="filterData()">Go!</button>
+          <button class="btn btn-default" type="button" (click)="resetFilters()"><span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
+        </span>
       </div><!-- /input-group -->
     </div><!-- /.col-lg-6 -->
   </div>

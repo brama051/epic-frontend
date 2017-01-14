@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit{
             this.message = localStorage.getItem('loginMessage');
           }else{
             localStorage.removeItem('message');
-            this.router.navigate(['/']);
+            this.router.navigate(['']);
           }
 
         },
