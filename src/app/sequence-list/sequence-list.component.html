@@ -49,12 +49,12 @@
     <div class="col-md-4 text-center">Page {{page}} of {{totalPages}}</div>
     <div class="col-md-4 text-right">
         <ul class="pagination" style="margin: 0">
-          <li>
+          <li [ngClass]="{disabled: page === 1}">
             <a href="#" aria-label="Previous" (click)="previousPage()">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li>
+          <li [ngClass]="{disabled: page === totalPages}">
             <a href="#" aria-label="Next" (click)="nextPage()">
               <span aria-hidden="true">&raquo;</span>
             </a>
