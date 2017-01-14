@@ -18,6 +18,7 @@ import {SequenceService} from "./_services/sequence.service";
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '',      component: SequenceListComponent, canActivate: [AuthGuard] },
+  { path: '**',    redirectTo: ''}
 ];
 
 @NgModule({
