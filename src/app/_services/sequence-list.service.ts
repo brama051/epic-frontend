@@ -9,15 +9,11 @@ export class SequenceListService {
   }
 
   getPageFromServer(token: string, page: number, itemsPerPage: number, filter: string, orderBy: string) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    let options = {
-      headers: headers
-    };
+    if(filter.length < 3) filter = '';
     let url:string = "https://epic-app-backend.herokuapp.com/sequences/page?";
     let parameters:string = 'token=' + token + '&'+ 'page=' + page + '&' + 'itemsPerPage=' + itemsPerPage + '&'+ 'filter=' + filter + '&orderBy=' + orderBy;
     console.log(url + parameters);
-    return this.http.get(url + parameters, options)
+    return this.http.get(url + parameters)
       .map(res => res.json());
   }
 

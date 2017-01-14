@@ -55,9 +55,11 @@ export class SequenceListComponent implements OnInit {
   }
 
   filterData() {
-    console.log('Attempting to filter data');
-    this.page = 1;
-    this.getPage();
+    if(this.filter.length >= 3){
+      console.log('Attempting to filter data');
+      this.page = 1;
+      this.getPage();
+    }
   }
 
   nextPage() {
