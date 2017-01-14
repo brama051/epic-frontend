@@ -27,10 +27,10 @@
 
       <table class="table table-bordered">
         <tr>
-          <th>NO.</th>
-          <th>Submitted By</th>
-          <th>Purpose</th>
-          <th>Date</th>
+          <th (click)="setOrderBy('sequenceNumber')">NO.</th>
+          <th (click)="setOrderBy('byUser')">Submitted By</th>
+          <th (click)="setOrderBy('purpose')">Purpose</th>
+          <th (click)="setOrderBy('date')">Date</th>
         </tr>
 
         <tr *ngFor="let seq of sequenceList">
@@ -63,5 +63,5 @@
     </div>
   </div>
 
-  <ef-popup></ef-popup>
+  <ef-popup (onNewSequence)="onNewSequence($event)"></ef-popup>
 </div> <!-- /container -->

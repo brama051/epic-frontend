@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, sequence} from '@angular/core';
+import {Component, OnInit, Input, sequence, EventEmitter, Output} from '@angular/core';
 import {SequenceService} from "../_services/sequence.service";
 import {Sequence} from "../_models/sequence";
 
@@ -10,13 +10,10 @@ import {Sequence} from "../_models/sequence";
 export class PopupComponent implements OnInit {
   @Input() public isNewSequence: boolean;
   public sequence: Sequence;
-  //public sequenceNumber: number;
-  //public byUser: string;
-  //public purpose: string;
-  //public date: string;
   @Input() public showSelf: boolean = false;
   private token: string;
   private message: string;
+  @Output() onNewSequence = new EventEmitter<boolean>();
 
   constructor(private sequenceService: SequenceService) {
     this.sequence = new Sequence(0, "", "", "");
@@ -112,10 +109,9 @@ export class PopupComponent implements OnInit {
             }
 
             if(success){
+            this.onNewSequence.emit(true);
               this.closeModal();
-              /**
-               * Emit event that will trigger table refresh;
-               */
+
             }
 
           },

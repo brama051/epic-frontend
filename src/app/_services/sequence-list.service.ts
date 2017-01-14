@@ -8,14 +8,16 @@ export class SequenceListService {
   constructor(private http: Http) {
   }
 
-  getPageFromServer(token: string, page: number, itemsPerPage: number, filter: string,) {
+  getPageFromServer(token: string, page: number, itemsPerPage: number, filter: string, orderBy: string) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let options = {
       headers: headers
     };
-    let parameters = 'token=' + token + '&'+ 'page=' + page + '&' + 'itemsPerPage=' + itemsPerPage + '&'+ 'filter=' + filter;
-    return this.http.get("https://epic-app-backend.herokuapp.com/sequences/page?" + parameters, options)
+    let url:string = "https://epic-app-backend.herokuapp.com/sequences/page?";
+    let parameters:string = 'token=' + token + '&'+ 'page=' + page + '&' + 'itemsPerPage=' + itemsPerPage + '&'+ 'filter=' + filter + '&orderBy=' + orderBy;
+    console.log(url + parameters);
+    return this.http.get(url + parameters, options)
       .map(res => res.json());
   }
 

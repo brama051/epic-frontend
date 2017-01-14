@@ -1,4 +1,4 @@
-import {Component, OnInit, sequence, ViewChild} from '@angular/core';
+import {Component, OnInit, sequence, ViewChild, EventEmitter, Output} from '@angular/core';
 import {Sequence} from "../_models/sequence";
 import {SequenceListService} from "../_services/sequence-list.service";
 import {PopupComponent} from "../popup/popup.component";
@@ -15,6 +15,9 @@ export class SequenceListComponent implements OnInit {
   private itemsPerPage: number;
   private sequenceList: Sequence[];
   private totalPages: number;
+  private orderBy: string;
+
+
   @ViewChild(PopupComponent)
   private popupComponent: PopupComponent;
 
@@ -24,6 +27,7 @@ export class SequenceListComponent implements OnInit {
     this.itemsPerPage = 5;
     this.sequenceList = [];
     this.totalPages = 1;
+    this.orderBy = "";
 
   }
 
@@ -33,7 +37,7 @@ export class SequenceListComponent implements OnInit {
   }
 
   getPage(){
-    this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page, this.itemsPerPage, this.filter)
+    this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page, this.itemsPerPage, this.filter, this.orderBy)
       .subscribe(
         data => {
           this.sequenceList = [];
@@ -61,7 +65,7 @@ export class SequenceListComponent implements OnInit {
     console.log('Current page:' + this.page);
     console.log('Total pages:' + this.totalPages);
     if(this.page < this.totalPages){
-      this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page + 1, this.itemsPerPage, this.filter)
+      this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page + 1, this.itemsPerPage, this.filter, this.orderBy)
         .subscribe(
           data => {
             this.sequenceList = [];
@@ -81,9 +85,10 @@ export class SequenceListComponent implements OnInit {
     console.log('Current page:' + this.page);
     console.log('Total pages:' + this.totalPages);
     if(this.page > 1){
-      this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page - 1, this.itemsPerPage, this.filter)
+      this.sequenceListService.getPageFromServer(localStorage.getItem('token'), this.page - 1, this.itemsPerPage, this.filter, this.orderBy)
         .subscribe(
           data => {
+
             this.sequenceList = [];
             this.totalPages = data.totalPages;
             this.page --;
@@ -95,6 +100,28 @@ export class SequenceListComponent implements OnInit {
             console.log('Error fetching data');
           });
     }
+  }
+
+  reorderData(){
+    console.log('Requesting previous page');
+    console.log('Current page:' + this.page);
+    console.log('Total pages:' + this.totalPages);
+
+    this.sequenceListService.getPageFromServer(localStorage.getItem('token'), 1, this.itemsPerPage, this.filter, this.orderBy)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.sequenceList = [];
+          this.totalPages = data.totalPages;
+          this.page = 1;
+          data.list.forEach((arrayItem)=>{
+            this.sequenceList.push(new Sequence(arrayItem.sequenceNumber, arrayItem.byUser, arrayItem.purpose, arrayItem.date));
+          });
+        },
+        error => {
+          console.log('Error fetching data');
+        });
+
   }
 
   onEnter() {
@@ -117,5 +144,15 @@ export class SequenceListComponent implements OnInit {
     this.popupComponent.isNewSequence = true;
     this.popupComponent.openModal(0);
 
+  }
+
+  setOrderBy(column: string){
+    this.orderBy = column;
+    console.log(this.orderBy);
+    this.reorderData();
+  }
+
+  onNewSequence(){
+    this.setOrderBy('sequenceNumber');
   }
 }
