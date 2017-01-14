@@ -1,6 +1,7 @@
-import {Component, OnInit, sequence} from '@angular/core';
+import {Component, OnInit, sequence, ViewChild} from '@angular/core';
 import {Sequence} from "../_models/sequence";
 import {SequenceListService} from "../_services/sequence-list.service";
+import {PopupComponent} from "../popup/popup.component";
 
 @Component({
   selector: 'ef-sequence-list',
@@ -15,12 +16,16 @@ export class SequenceListComponent implements OnInit {
   private sequenceList: Sequence[];
   private totalPages: number;
 
+  @ViewChild(PopupComponent)
+  private popupComponent: PopupComponent;
+
   constructor(private sequenceListService: SequenceListService) {
     this.filter = "";
     this.page = 1;
     this.itemsPerPage = 5;
     this.sequenceList = [];
     this.totalPages = 1;
+
   }
 
   ngOnInit() {
@@ -39,14 +44,10 @@ export class SequenceListComponent implements OnInit {
 
             this.sequenceList.push(new Sequence(arrayItem.sequenceNumber, arrayItem.byUser, arrayItem.purpose, arrayItem.date));
           });
-
-          //console.log(this.sequenceList)
-
         },
         error => {
           console.log('Error fetching data');
-          //this.alertService.error(error);
-          //this.loading = false;
+          console.log(error.toString());
         });
   }
 
@@ -106,8 +107,16 @@ export class SequenceListComponent implements OnInit {
 
   }
 
-  showModal(sequenceNumber: number){
+  doShowModal(sequenceNumber: number){
+    this.popupComponent.sequenceNumber = sequenceNumber;
+    this.popupComponent.openModal();
+    this.popupComponent.isNewSequence = false;
     console.log('Show modal ' + sequenceNumber);
   }
 
+  doClaimNew(){
+
+    this.popupComponent.openModal();
+    this.popupComponent.isNewSequence = true;
+  }
 }

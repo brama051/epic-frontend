@@ -7,7 +7,7 @@
   </div>
   <div class="row">
     <div class="col-md-2">
-      <button type="button" class="btn btn-primary">Claim New</button>
+      <button type="button" class="btn btn-primary" (click)="doClaimNew()">Claim New</button>
     </div>
     <div class="col-md-6">
     </div>
@@ -34,7 +34,7 @@
         </tr>
 
         <tr *ngFor="let seq of sequenceList">
-          <td><a href="#" (click)="showModal(seq.sequenceNumber)">{{seq.sequenceNumber}}</a></td>
+          <td><a href="#" (click)="doShowModal(seq.sequenceNumber)">{{seq.sequenceNumber}}</a></td>
           <td>{{seq.byUser}}</td>
           <td>{{seq.purpose}}</td>
           <td>{{seq.date}}</td>

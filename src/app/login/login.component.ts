@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit{
     this.message = localStorage.getItem('loginMessage');
   }
   onSubmit(form: NgForm){
-    //console.log(form.value);
+    console.log(form.value);
     this.message = '';
     this.authenticationService.login(form.value.username, form.value.password)
       .subscribe(
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit{
         },
         error => {
           console.log('Error while trying to validate user');
+          console.log(error.toString());
         });
 
   }

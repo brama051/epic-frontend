@@ -11,14 +11,23 @@ export class PopupComponent implements OnInit {
   @Input() public byUser: string;
   @Input() public purpose: string;
   @Input() public date: string;
-  @Input() public hideModal: boolean = false;
+  @Input() public showSelf: boolean = false;
 
-  constructor() {}
+  constructor() {
+    this.isNewSequence = false;
+    this.sequenceNumber = 0;
+    this.purpose = "";
+    this.byUser = localStorage.getItem('username');
+  }
 
   ngOnInit() {
   }
 
+  openModal(){
+    this.showSelf = true;
+  }
+
   closeModal(){
-    this.hideModal = true;
+    this.showSelf = false;
   }
 }
