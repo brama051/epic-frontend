@@ -1,29 +1,12 @@
-<div class="modal fade" [hidden]="hideModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<div class="modal fade bs-example-modal-sm in" role="dialog" tabindex="-1" aria-labelledby="mySmallModalLabel"
+     style="display: block; padding-right: 15px;">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><span *ngIf="isNewSequence === true">Claim new sequence</span><span *ngIf="isNewSequence !== true">Document details</span></h4>
-      </div>
-      <div class="modal-body">
-
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Sequence number</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-          </div>
-
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeModal()">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4></div>
+      <div class="modal-body"> ...</div>
+    </div>
+  </div>
+</div>
