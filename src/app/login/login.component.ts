@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit{
           if (!this.token){
             this.message = localStorage.getItem('loginMessage');
           }else{
+            localStorage.removeItem('message');
             this.router.navigate(['/']);
           }
 
