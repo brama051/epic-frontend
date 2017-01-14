@@ -13,18 +13,14 @@ export class SequenceService {
     let options = {
       headers: headers
     };
-    let parameters = 'token=' + token + '&'+ 'sequenceNumber=' + sequenceNumber;
+    let parameters = 'token=' + token + '&' + 'sequenceNumber=' + sequenceNumber;
     return this.http.get("https://epic-app-backend.herokuapp.com/sequence?" + parameters, options)
       .map(res => res.json());
   }
 
   requestNewSequence(token: string){
-    let headers = new Headers();
-    let options = {
-      headers: headers
-    };
     let parameters = 'token=' + token;
-    return this.http.get("https://epic-app-backend.herokuapp.com/sequence/request?" + parameters, options)
+    return this.http.get("https://epic-app-backend.herokuapp.com/sequence/request?" + parameters)
       .map(res => res.json());
   }
 

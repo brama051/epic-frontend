@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, sequence} from '@angular/core';
 import {SequenceService} from "../_services/sequence.service";
 import {Sequence} from "../_models/sequence";
 
@@ -15,6 +15,7 @@ export class PopupComponent implements OnInit {
   //public purpose: string;
   //public date: string;
   @Input() public showSelf: boolean = false;
+  private token;
 
   constructor(private sequenceService: SequenceService) {
     this.sequence = new Sequence(0, "", "", "");
@@ -22,12 +23,14 @@ export class PopupComponent implements OnInit {
     this.sequence.sequenceNumber = 0;
     this.sequence.purpose = "";
     this.sequence.byUser = localStorage.getItem('username');
+    this.token = localStorage.getItem('token');
   }
 
   ngOnInit() {
   }
 
   openModal(){
+    this.sequence = new Sequence(0, "", "", "");
     if(this.isNewSequence){
       this.sequence.purpose = "";
       this.requestNewSequence();
@@ -41,60 +44,75 @@ export class PopupComponent implements OnInit {
   }
 
   getSequence(){
-    this.sequenceService.getSequence(localStorage.getItem('token'), this.sequence.sequenceNumber)
+    this.sequenceService.getSequence(this.token, this.sequence.sequenceNumber)
       .subscribe(
         data => {
           console.log("Existing sequence fetched:");
           console.log(data);
+          console.log("=======================");
           this.sequence.sequenceNumber = data.sequenceNumber;
           this.sequence.byUser = data.byUser;
           this.sequence.purpose = data.purpose;
-          //console.log(data.date);
-          //console.log(new Date(data.date).toLocaleDateString());
           this.sequence.date = data.date;
-          this.showSelf = true;
+
         },
         error => {
           console.log('Error fetching data');
           console.log(error.toString());
+        },
+        () => {
+          console.log('Done');
+          this.showSelf = true;
+          console.log(this.sequence);
         });
   }
 
   requestNewSequence(){
-    this.sequenceService.requestNewSequence(localStorage.getItem('token'))
+    this.sequenceService.requestNewSequence(this.token)
       .subscribe(
         data => {
           console.log("New sequence granted:");
           console.log(data);
+          console.log("=======================");
           this.sequence.sequenceNumber = data.sequenceNumber;
           this.sequence.byUser = localStorage.getItem('username');
           let date: string = new Date().toJSON();
           this.sequence.date = date.slice(0, date.indexOf('T'));
-
-          this.showSelf = true;
         },
         error => {
           console.log('Error fetching data');
           console.log(error.toString());
-        });
+        },
+        () => {
+          console.log('Done');
+          this.showSelf = true;
+          console.log(this.sequence);
+        }
+      );
   }
 
   claimNewSequence(){
-    this.sequenceService.createNewSequence(localStorage.getItem('token'), this.sequence)
+    this.sequenceService.createNewSequence(this.token, this.sequence)
       .subscribe(
         data => {
           console.log("New sequence granted:");
-          console.log(data);
+
+
           this.sequence.sequenceNumber = data.sequenceNumber;
-          this.sequence.byUser = localStorage.getItem('username');
+          this.sequence.byUser = data.byUser();//localStorage.getItem('username');
           let date: string = new Date().toJSON();
           this.sequence.date = date.slice(0, date.indexOf('T'));
-
-          this.showSelf = true;
         },
         error => {
           console.log('Error fetching data');
           console.log(error.toString());
-        });
+        },
+        () => {
+          console.log(this.sequence);
+          this.showSelf = true;
+        }
+      );
   }
+
+
 }
