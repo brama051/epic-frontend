@@ -13,6 +13,7 @@ import {AuthGuard} from "./_guards/auth-guard";
 import {SequenceListService} from "./_services/sequence-list.service";
 import { PopupComponent } from './popup/popup.component';
 import {SequenceService} from "./_services/sequence.service";
+import { TruncatePipe } from './_pipes/truncate.pipe';
 
 
 const appRoutes: Routes = [
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
     LoginComponent,
     SequenceListComponent,
     HeaderComponent,
-    PopupComponent
+    PopupComponent,
+    TruncatePipe
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

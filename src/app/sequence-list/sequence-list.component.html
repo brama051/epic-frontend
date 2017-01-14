@@ -36,7 +36,7 @@
         <tr *ngFor="let seq of sequenceList">
           <td><a href="#" (click)="doShowModal(seq.sequenceNumber)">{{seq.sequenceNumber}}</a></td>
           <td>{{seq.byUser}}</td>
-          <td>{{seq.purpose}}</td>
+          <td>{{seq.purpose | truncate }}</td>
           <td>{{seq.date}}</td>
         </tr>
 
