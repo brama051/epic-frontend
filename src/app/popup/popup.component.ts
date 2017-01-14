@@ -15,7 +15,8 @@ export class PopupComponent implements OnInit {
   //public purpose: string;
   //public date: string;
   @Input() public showSelf: boolean = false;
-  private token;
+  private token: string;
+  private message: string;
 
   constructor(private sequenceService: SequenceService) {
     this.sequence = new Sequence(0, "", "", "");
@@ -24,6 +25,7 @@ export class PopupComponent implements OnInit {
     this.sequence.purpose = "";
     this.sequence.byUser = localStorage.getItem('username');
     this.token = localStorage.getItem('token');
+    this.message = "";
   }
 
   ngOnInit() {
@@ -31,6 +33,7 @@ export class PopupComponent implements OnInit {
 
   openModal(sequenceNumber: number){
     this.sequence = new Sequence(0, "", "", "");
+    this.message = "";
     if(this.isNewSequence){
       this.sequence.purpose = "";
       this.requestNewSequence();
@@ -85,22 +88,46 @@ export class PopupComponent implements OnInit {
   }
 
   claimNewSequence(){
-    this.sequenceService.createNewSequence(this.token, this.sequence)
-      .subscribe(
-        data => {
-          this.sequence.sequenceNumber = data.sequenceNumber;
-          this.sequence.byUser = data.byUser();//localStorage.getItem('username');
-          let date: string = new Date().toJSON();
-          this.sequence.date = date.slice(0, date.indexOf('T'));
-        },
-        error => {
-          console.log('Error fetching data');
-          console.log(error.toString());
-        },
-        () => {
-          console.log('Done');
-        }
-      );
+    this.message = "";
+    console.log(this.sequence);
+
+    if(this.sequence.purpose.length < 1){
+      this.message += "Opis mora biti minimalno duljine jednog znaka. ";
+    }else{
+      this.sequenceService.createNewSequence(this.token, this.sequence)
+        .subscribe(
+          data => {
+            console.log(data);
+            let success:boolean = true;
+            if(this.sequence.sequenceNumber !== data.sequenceNumber){
+              success = false;
+              this.message += "Greška, sekvenca se promijenila, pokušajte ponovo. ";
+              this.sequence.sequenceNumber = data.sequenceNumber;
+            }
+
+            if(this.sequence.byUser !== data.byUser){
+              success = false;
+              this.message += "Greška, krivi korisnik.";
+              this.sequence.byUser = data.byUser;
+            }
+
+            if(success){
+              this.closeModal();
+              /**
+               * Emit event that will trigger table refresh;
+               */
+            }
+
+          },
+          error => {
+            console.log('Error fetching data');
+            console.log(error.toString());
+          },
+          () => {
+            console.log('Done');
+          }
+        );
+    }
   }
 
 

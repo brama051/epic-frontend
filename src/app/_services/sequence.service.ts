@@ -34,8 +34,11 @@ export class SequenceService {
     let options = {
       headers: headers
     };
-
-    return this.http.post("https://epic-app-backend.herokuapp.com/sequence/new?token=" + token , JSON.stringify(sequence), options)
+    let parameters: string = "token=" + token;
+    let url: string = "https://epic-app-backend.herokuapp.com/sequence/new?";
+    console.log("POST: " + url + parameters);
+    console.log(sequence);
+    return this.http.post(url + parameters , JSON.stringify(sequence), options)
       .map(res => res.json());
   }
 
