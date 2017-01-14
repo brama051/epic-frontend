@@ -107,16 +107,15 @@ export class SequenceListComponent implements OnInit {
   }
 
   doShowModal(sequenceNumber: number){
-    this.popupComponent.sequence.sequenceNumber = sequenceNumber;
-    this.popupComponent.openModal();
     this.popupComponent.isNewSequence = false;
-    console.log('Show modal ' + sequenceNumber);
+    this.popupComponent.openModal(sequenceNumber);
+
 
   }
 
   doClaimNew(){
-
-    this.popupComponent.openModal();
     this.popupComponent.isNewSequence = true;
+    this.popupComponent.openModal(0);
+
   }
 }

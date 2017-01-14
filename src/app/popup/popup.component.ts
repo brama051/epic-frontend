@@ -29,12 +29,13 @@ export class PopupComponent implements OnInit {
   ngOnInit() {
   }
 
-  openModal(){
+  openModal(sequenceNumber: number){
     this.sequence = new Sequence(0, "", "", "");
     if(this.isNewSequence){
       this.sequence.purpose = "";
       this.requestNewSequence();
     }else{
+      this.sequence.sequenceNumber = sequenceNumber;
       this.getSequence();
     }
   }
@@ -47,9 +48,6 @@ export class PopupComponent implements OnInit {
     this.sequenceService.getSequence(this.token, this.sequence.sequenceNumber)
       .subscribe(
         data => {
-          console.log("Existing sequence fetched:");
-          console.log(data);
-          console.log("=======================");
           this.sequence.sequenceNumber = data.sequenceNumber;
           this.sequence.byUser = data.byUser;
           this.sequence.purpose = data.purpose;
@@ -63,7 +61,6 @@ export class PopupComponent implements OnInit {
         () => {
           console.log('Done');
           this.showSelf = true;
-          console.log(this.sequence);
         });
   }
 
@@ -71,9 +68,6 @@ export class PopupComponent implements OnInit {
     this.sequenceService.requestNewSequence(this.token)
       .subscribe(
         data => {
-          console.log("New sequence granted:");
-          console.log(data);
-          console.log("=======================");
           this.sequence.sequenceNumber = data.sequenceNumber;
           this.sequence.byUser = localStorage.getItem('username');
           let date: string = new Date().toJSON();
@@ -86,7 +80,6 @@ export class PopupComponent implements OnInit {
         () => {
           console.log('Done');
           this.showSelf = true;
-          console.log(this.sequence);
         }
       );
   }
@@ -95,9 +88,6 @@ export class PopupComponent implements OnInit {
     this.sequenceService.createNewSequence(this.token, this.sequence)
       .subscribe(
         data => {
-          console.log("New sequence granted:");
-
-
           this.sequence.sequenceNumber = data.sequenceNumber;
           this.sequence.byUser = data.byUser();//localStorage.getItem('username');
           let date: string = new Date().toJSON();
@@ -108,8 +98,7 @@ export class PopupComponent implements OnInit {
           console.log(error.toString());
         },
         () => {
-          console.log(this.sequence);
-          this.showSelf = true;
+          console.log('Done');
         }
       );
   }

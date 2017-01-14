@@ -14,15 +14,15 @@
         <form>
           <div class="form-group">
             <label for="sequenceNumber">Sequence number</label>
-            <input type="number" class="form-control" id="sequenceNumber"  disabled  name="sequenceNumber">
+            <input type="number" class="form-control" id="sequenceNumber"  disabled  name="sequenceNumber" [(ngModel)]="sequence.sequenceNumber">
           </div>
           <div class="form-group">
             <label for="byUser">By User</label>
-            <input type="text" class="form-control" id="byUser"  disabled >
+            <input type="text" class="form-control" id="byUser"  disabled [(ngModel)]="sequence.byUser" name="byUser">
           </div>
           <div class="form-group">
             <label for="purpose">Purpose</label>
-            <input type="text" class="form-control" id="purpose" [disabled]="isNewSequence ? false : true"  name="purpose">
+            <input type="text" class="form-control" id="purpose" [disabled]="isNewSequence ? false : true"  name="purpose" [(ngModel)]="sequence.purpose">
           </div>
         </form>
       </div>
