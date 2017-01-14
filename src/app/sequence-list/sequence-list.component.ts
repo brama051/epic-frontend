@@ -107,7 +107,7 @@ export class SequenceListComponent implements OnInit {
   }
 
   doShowModal(sequenceNumber: number){
-    this.popupComponent.sequenceNumber = sequenceNumber;
+    this.popupComponent.sequence.sequenceNumber = sequenceNumber;
     this.popupComponent.openModal();
     this.popupComponent.isNewSequence = false;
     console.log('Show modal ' + sequenceNumber);

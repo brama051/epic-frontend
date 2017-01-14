@@ -29,7 +29,14 @@ export class SequenceService {
   }
 
   createNewSequence(token: string, sequence: Sequence){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let options = {
+      headers: headers
+    };
 
+    return this.http.post("https://epic-app-backend.herokuapp.com/sequence/new?token=" + token , JSON.stringify(sequence), options)
+      .map(res => res.json());
   }
 
 }

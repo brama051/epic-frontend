@@ -14,23 +14,22 @@
         <form>
           <div class="form-group">
             <label for="sequenceNumber">Sequence number</label>
-            <input type="number" class="form-control" id="sequenceNumber"  disabled>
+            <input type="number" class="form-control" id="sequenceNumber"  disabled [(ngModel)]="sequence.sequenceNumber" name="sequenceNumber">
           </div>
           <div class="form-group">
             <label for="byUser">By User</label>
-            <input type="text" class="form-control" id="byUser"  disabled>
+            <input type="text" class="form-control" id="byUser"  disabled value="{{sequence.byUser}}">
           </div>
           <div class="form-group">
             <label for="purpose">Purpose</label>
-            <input type="text" class="form-control" id="purpose" [disabled]="isNewSequence ? false : true">
+            <input type="text" class="form-control" id="purpose" [disabled]="isNewSequence ? false : true" [(ngModel)]="sequence.purpose" name="purpose">
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
-        <button type="button" class="btn btn-default btn-primary" data-dismiss="modal" >Claim!</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+        <button *ngIf="isNewSequence === true" type="button" class="btn btn-default" data-dismiss="modal" (click)="closeModal()">Cancel</button>
+        <button *ngIf="isNewSequence === true" type="button" class="btn btn-default btn-primary" data-dismiss="modal" >Claim!</button>
+        <button *ngIf="isNewSequence === false" type="button" class="btn btn-default" data-dismiss="modal" (click)="closeModal()">OK</button>
       </div>
     </div>
   </div>
