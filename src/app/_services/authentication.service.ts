@@ -8,6 +8,7 @@ export class AuthenticationService {
   constructor(private http: Http) { }
 
   login(username: string, password: string) {
+    localStorage.setItem('timestamp', JSON.stringify(new Date()));
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Access-Control-Allow-Origin', '*');
@@ -33,6 +34,7 @@ export class AuthenticationService {
   }
 
   logout(token: string) {
+    localStorage.setItem('timestamp', JSON.stringify(new Date()));
     localStorage.removeItem('token');
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

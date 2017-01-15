@@ -21,10 +21,21 @@ export class LoginComponent implements OnInit{
   ngOnInit(){
     // reset login status
     localStorage.removeItem('token');
-
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.message = localStorage.getItem('loginMessage');
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
+
+    if (localStorage.getItem('timestamp')) {
+      let timestamp: Date = new Date(JSON.parse(localStorage.getItem('timestamp')));
+      //console.log(timestamp);
+      let newTimestamp = new Date();
+      console.log(timestamp);
+      console.log(newTimestamp);
+      let dateDiff: Date = new Date(new Date(newTimestamp.getTime() - timestamp.getTime()));
+      let secondsPassed: number = dateDiff.getTime() / 1000;
+      if (secondsPassed < 10) {
+        this.message = localStorage.getItem('loginMessage');
+      }
+    }
   }
   onSubmit(form: NgForm){
     console.log(form.value);
